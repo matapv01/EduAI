@@ -63,17 +63,25 @@ def evaluate_subject_trend(hk1_val, hk2_val):
     else:
         return "ON_DINH"
 
-def generate_diem_thanh_phan(sub, hk1, hk2, hk1_comment, hk2_comment):
+def generate_diem_thanh_phan(sub, hk1, hk2, hk1_comment, hk2_comment, is_outstanding=True):
     hk1_comment = (hk1_comment or "").strip(" .")
     hk2_comment = (hk2_comment or "").strip(" .")
     
     template = get_subject_template(sub)
-    if template and "diem_thanh_phan" in template:
-        tpl_str = template["diem_thanh_phan"]
-        try:
-            return tpl_str.format(hk1=hk1, hk2=hk2)
-        except Exception:
-            return tpl_str
+    if template:
+        key = "strength" if is_outstanding else "concern"
+        if key in template and "diem_thanh_phan" in template[key]:
+            tpl_str = template[key]["diem_thanh_phan"]
+            try:
+                return tpl_str.format(hk1=hk1, hk2=hk2)
+            except Exception:
+                return tpl_str
+        elif "diem_thanh_phan" in template:
+            tpl_str = template["diem_thanh_phan"]
+            try:
+                return tpl_str.format(hk1=hk1, hk2=hk2)
+            except Exception:
+                return tpl_str
             
     # Generic fallback logic
     if hk2 > hk1:
@@ -85,10 +93,14 @@ def generate_diem_thanh_phan(sub, hk1, hk2, hk1_comment, hk2_comment):
             return f"Kết quả duy trì ổn định, {hk2_comment.lower()}."
         return f"Kết quả học tập ổn định ở mức {hk2}."
 
-def generate_nhan_xet_he_thong(sub, hk1, hk2):
+def generate_nhan_xet_he_thong(sub, hk1, hk2, is_outstanding=True):
     template = get_subject_template(sub)
-    if template and "nhan_xet_he_thong" in template:
-        return template["nhan_xet_he_thong"]
+    if template:
+        key = "strength" if is_outstanding else "concern"
+        if key in template and "nhan_xet_he_thong" in template[key]:
+            return template[key]["nhan_xet_he_thong"]
+        elif "nhan_xet_he_thong" in template:
+            return template["nhan_xet_he_thong"]
         
     if hk2 > hk1:
         if hk2 >= 8.0:
@@ -127,8 +139,9 @@ def build_subject_reviews(input_data, selected_scored, noi_bat_list):
         hk1_comment = hk1_data.get("nhan_xet")
         hk2_comment = hk2_data.get("nhan_xet")
         
-        diem_thanh_phan = generate_diem_thanh_phan(sub, hk1_dtb, hk2_dtb, hk1_comment, hk2_comment)
-        nhan_xet_he_thong = generate_nhan_xet_he_thong(sub, hk1_dtb, hk2_dtb)
+        is_outstanding = (vi == "NOI_BAT")
+        diem_thanh_phan = generate_diem_thanh_phan(sub, hk1_dtb, hk2_dtb, hk1_comment, hk2_comment, is_outstanding)
+        nhan_xet_he_thong = generate_nhan_xet_he_thong(sub, hk1_dtb, hk2_dtb, is_outstanding)
         
         # Concern subjects default to HK1 comments in dataout.txt
         if vi == "CAN_CAI_THIEN":

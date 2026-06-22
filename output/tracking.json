@@ -4,23 +4,23 @@
     "desc": "Tên mô hình LLM được sử dụng để nhận xét"
   },
   "prompt_tokens": {
-    "val": 557,
+    "val": 418,
     "desc": "Số lượng token của prompt đầu vào gửi tới LLM"
   },
   "completion_tokens": {
-    "val": 274,
+    "val": 161,
     "desc": "Số lượng token sinh ra ở đầu ra bởi LLM"
   },
   "total_tokens": {
-    "val": 831,
+    "val": 579,
     "desc": "Tổng số lượng token tiêu thụ (đầu vào + đầu ra)"
   },
   "latency_seconds": {
-    "val": 16.595755100250244,
+    "val": 5.965718984603882,
     "desc": "Thời gian phản hồi và xử lý của API (tính bằng giây)"
   },
   "speed_tps": {
-    "val": 16.510246044536316,
+    "val": 26.98752663601875,
     "desc": "Tốc độ sinh token của LLM (số token đầu ra sinh ra mỗi giây)"
   }
 }
