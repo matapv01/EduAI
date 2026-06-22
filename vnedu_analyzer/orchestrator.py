@@ -57,11 +57,13 @@ def process_student_advisory(input_data, prompt_template=None, metrics_out=None)
             hk1_str = f"{hk1_val:.1f}" if hk1_val is not None else ""
             hk2_str = f"{hk2_val:.1f}" if hk2_val is not None else ""
             
-            template = get_subject_template(sub["ten_mon"])
-            if template and "strength_mo_ta" in template:
-                mo_ta = template["strength_mo_ta"].format(hk1=hk1_str, hk2=hk2_str)
+            if hk1_val is not None and hk2_val is not None:
+                if hk2_val > hk1_val:
+                    mo_ta = f"Điểm số tiến bộ rõ rệt từ {hk1_str} lên {hk2_str}, hoàn thành tốt nội dung học tập."
+                else:
+                    mo_ta = f"Duy trì kết quả tốt ổn định ở mức {hk2_str}, có tinh thần tự giác học tập."
             else:
-                mo_ta = f"Điểm tăng từ {hk1_str} lên {hk2_str}, đạt kết quả tốt."
+                mo_ta = f"Đạt kết quả học tập tốt môn {sub['ten_mon']}."
                 
             strengths_items.append({
                 "loai": "MON_HOC",
@@ -84,11 +86,15 @@ def process_student_advisory(input_data, prompt_template=None, metrics_out=None)
     concerns_items = []
     for sub in subject_reviews["danh_sach"]:
         if sub["mon_duoc_chon_vi"] == "CAN_CAI_THIEN":
-            template = get_subject_template(sub["ten_mon"])
-            if template and "concern_mo_ta" in template:
-                mo_ta = template["concern_mo_ta"]
+            hk2_val = sub["dtb_hk2"]
+            hk2_str = f"{hk2_val:.1f}" if hk2_val is not None else ""
+            if hk2_val is not None:
+                if hk2_val < 5.0:
+                    mo_ta = f"Điểm trung bình còn thấp ({hk2_str}), chưa đạt chuẩn trung bình bộ môn."
+                else:
+                    mo_ta = f"Điểm số ở mức trung bình ({hk2_str}), cần dành thời gian luyện tập thêm."
             else:
-                mo_ta = "Điểm còn chưa cao, cần tăng cường luyện tập."
+                mo_ta = "Kết quả học tập còn hạn chế, cần tăng cường ôn tập."
                 
             concerns_items.append({
                 "loai": "MON_HOC",

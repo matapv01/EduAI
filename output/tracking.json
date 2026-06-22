@@ -8,19 +8,19 @@
     "desc": "Số lượng token của prompt đầu vào gửi tới LLM"
   },
   "completion_tokens": {
-    "val": 161,
+    "val": 220,
     "desc": "Số lượng token sinh ra ở đầu ra bởi LLM"
   },
   "total_tokens": {
-    "val": 579,
+    "val": 638,
     "desc": "Tổng số lượng token tiêu thụ (đầu vào + đầu ra)"
   },
   "latency_seconds": {
-    "val": 5.965718984603882,
+    "val": 7.181046009063721,
     "desc": "Thời gian phản hồi và xử lý của API (tính bằng giây)"
   },
   "speed_tps": {
-    "val": 26.98752663601875,
+    "val": 30.636205327513846,
     "desc": "Tốc độ sinh token của LLM (số token đầu ra sinh ra mỗi giây)"
   }
 }

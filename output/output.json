@@ -5,7 +5,7 @@
       "dien_chinh_sach": "Con thương binh, bệnh binh",
       "khu_vuc": null
     },
-    "gioi_thieu_text": "Em là con thương binh/bệnh binh nhưng vẫn nỗ lực vượt khó đến trường, thể hiện tinh thần hiếu học đáng quý.",
+    "gioi_thieu_text": "Em là con thương binh/bệnh binh nhưng vẫn kiên trì đến trường, nỗ lực vượt qua hoàn cảnh để theo đuổi con đường học tập.",
     "ho_ten": "string",
     "lop": "string",
     "khoi": 6,
@@ -17,7 +17,7 @@
     "si_so_lop": null
   },
   "general_summary": {
-    "tong_quan_text": "Kỳ 2 em có sự cố gắng rõ rệt trong học tập, tiến bộ vượt bậc so với giai đoạn trước.",
+    "tong_quan_text": "Kỳ 2 em đã thể hiện sự tiến bộ rõ rệt, cố gắng khắc phục những hạn chế từ kỳ trước và cải thiện kết quả học tập tích cực.",
     "xu_huong": "TIEN_BO",
     "xu_huong_text": "Có dấu hiệu tiến bộ rõ rệt từ học kỳ 1 sang học kỳ 2, đặc biệt ở các môn có điểm số tăng từ 4–6 điểm.",
     "diem_noi_bat": "Giáo dục thể chất (vẫn đạt toàn bộ)",
@@ -37,14 +37,14 @@
         "dtb_hk2": 3.4,
         "dtb_ca_nam": 3.4,
         "xu_huong": "ON_DINH",
-        "diem_thanh_phan_dang_chu_y": "Kết quả học kỳ 2 chưa cao, điểm số trung bình còn thấp.",
+        "diem_thanh_phan_dang_chu_y": "Điểm số môn GDCD còn ở mức thấp đạt 3.4, cần tích cực củng cố lại kiến thức.",
         "nhan_xet_gv": "NX_M2_K1.",
-        "nhan_xet_he_thong": "Chưa hoàn thành tốt yêu cầu môn học, cần dành thêm thời gian ôn tập lý thuyết."
+        "nhan_xet_he_thong": "Chưa hoàn thành đầy đủ yêu cầu bộ môn GDCD, cần tăng cường ôn luyện để đạt kết quả trung bình."
       }
     ]
   },
   "strengths": {
-    "summary_text": "Em cần tập trung cải thiện môn GDCD để kết quả học tập được cân bằng và toàn diện hơn.",
+    "summary_text": "Em có nhiều điểm mạnh ở các môn học cốt lõi, đặc biệt là khả năng tư duy và tiếp thu kiến thức tốt ở các môn chính.",
     "items": [
       {
         "loai": "THAI_DO",
@@ -59,7 +59,7 @@
       {
         "loai": "MON_HOC",
         "tieu_de": "GDCD",
-        "mo_ta": "Điểm còn chưa cao, cần tăng cường luyện tập.",
+        "mo_ta": "Điểm trung bình còn thấp (3.4), chưa đạt chuẩn trung bình bộ môn.",
         "canh_bao_tt22": false,
         "canh_bao_text": null
       }
@@ -104,13 +104,13 @@
     "ke_hoach_chi_tiet": [
       {
         "ten_mon": "GDCD",
-        "gio_tuan": 1.5,
+        "gio_tuan": 2.0,
         "noi_dung_tap_trung": [
-          "Luyện tập bài tập tự luận và trắc nghiệm",
-          "Hệ thống hóa kiến thức trọng tâm",
-          "Làm đề thi thử định kỳ"
+          "Hệ thống hóa lại các kiến thức cơ bản chưa nắm vững",
+          "Làm các bài tập cơ bản SGK và bài tập củng cố",
+          "Trao đổi với thầy cô và các bạn để giải đáp thắc mắc"
         ],
-        "ghi_chu": "Tập trung tự học và chủ động trao đổi bài học."
+        "ghi_chu": "Cần ưu tiên dành nhiều thời gian hơn để lấy lại kiến thức căn bản môn học."
       }
     ],
     "mon_nhan_xet_chua_dat": [],

@@ -64,49 +64,43 @@ def evaluate_subject_trend(hk1_val, hk2_val):
         return "ON_DINH"
 
 def generate_diem_thanh_phan(sub, hk1, hk2, hk1_comment, hk2_comment, is_outstanding=True):
-    hk1_comment = (hk1_comment or "").strip(" .")
-    hk2_comment = (hk2_comment or "").strip(" .")
+    v1 = safe_float(hk1)
+    v2 = safe_float(hk2)
+    if v1 is None or v2 is None:
+        return f"Kết quả học tập môn {sub} được duy trì."
+        
+    trend = "tăng" if v2 > v1 else "giảm" if v2 < v1 else "ổn định"
     
-    template = get_subject_template(sub)
-    if template:
-        key = "strength" if is_outstanding else "concern"
-        if key in template and "diem_thanh_phan" in template[key]:
-            tpl_str = template[key]["diem_thanh_phan"]
-            try:
-                return tpl_str.format(hk1=hk1, hk2=hk2)
-            except Exception:
-                return tpl_str
-        elif "diem_thanh_phan" in template:
-            tpl_str = template["diem_thanh_phan"]
-            try:
-                return tpl_str.format(hk1=hk1, hk2=hk2)
-            except Exception:
-                return tpl_str
-            
-    # Generic fallback logic
-    if hk2 > hk1:
-        if hk2_comment:
-            return f"Tăng từ {hk1} lên {hk2} trong học kỳ 2, {hk2_comment.lower()}."
-        return f"Tăng từ {hk1} lên {hk2} trong học kỳ 2, có nhiều tiến bộ."
+    if is_outstanding:
+        if trend == "tăng":
+            return f"Kết quả học tập môn {sub} tiến bộ rõ rệt trong học kỳ 2, tăng từ {v1:.1f} lên {v2:.1f}."
+        elif trend == "giảm":
+            return f"Duy trì kết quả học tập tốt môn {sub} ở học kỳ 2 với điểm trung bình đạt {v2:.1f}."
+        else:
+            return f"Kết quả học tập môn {sub} được duy trì ổn định ở mức tốt đạt {v2:.1f}."
     else:
-        if hk2_comment:
-            return f"Kết quả duy trì ổn định, {hk2_comment.lower()}."
-        return f"Kết quả học tập ổn định ở mức {hk2}."
+        if trend == "tăng":
+            return f"Có tiến bộ nhẹ môn {sub} từ {v1:.1f} lên {v2:.1f} nhưng điểm số nhìn chung vẫn cần nỗ lực cải thiện."
+        elif trend == "giảm":
+            return f"Điểm số môn {sub} có phần sụt giảm ở học kỳ 2 từ {v1:.1f} xuống {v2:.1f}, cần tập trung ôn tập hơn."
+        else:
+            return f"Điểm số môn {sub} còn ở mức thấp đạt {v2:.1f}, cần tích cực củng cố lại kiến thức."
 
 def generate_nhan_xet_he_thong(sub, hk1, hk2, is_outstanding=True):
-    template = get_subject_template(sub)
-    if template:
-        key = "strength" if is_outstanding else "concern"
-        if key in template and "nhan_xet_he_thong" in template[key]:
-            return template[key]["nhan_xet_he_thong"]
-        elif "nhan_xet_he_thong" in template:
-            return template["nhan_xet_he_thong"]
+    v2 = safe_float(hk2)
+    if v2 is None:
+        return f"Kết quả học tập môn {sub} cần được tiếp tục theo dõi."
         
-    if hk2 > hk1:
-        if hk2 >= 8.0:
-            return "Đạt kết quả tốt, thể hiện tinh thần học tập tích cực và tự giác cao."
-        return "Có tiến bộ trong học tập, cần nỗ lực phát huy để cải thiện kết quả."
-    return "Kết quả học tập ổn định, cần duy trì nỗ lực và tập trung hơn nữa."
+    if is_outstanding:
+        if v2 >= 8.0:
+            return f"Hoàn thành xuất sắc các nội dung học tập môn {sub}, tiếp thu bài nhanh và tự giác."
+        else:
+            return f"Hoàn thành tốt yêu cầu môn {sub}, có tinh thần học tập tích cực và chủ động."
+    else:
+        if v2 < 5.0:
+            return f"Chưa hoàn thành đầy đủ yêu cầu bộ môn {sub}, cần tăng cường ôn luyện để đạt kết quả trung bình."
+        else:
+            return f"Kết quả học tập môn {sub} ở mức trung bình, cần tập trung hơn nữa trong việc làm bài tập."
 
 def build_subject_reviews(input_data, selected_scored, noi_bat_list):
     chi_tiet = input_data.get("chi_tiet_diem", {})

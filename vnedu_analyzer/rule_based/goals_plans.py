@@ -1,19 +1,40 @@
 from ..utils import safe_float, get_subject_template
 
 def get_subject_plan_details(sub, current_score):
-    template = get_subject_template(sub)
-    if template and "study_plan" in template:
-        return template["study_plan"]
+    score = safe_float(current_score)
+    if score is None:
+        score = 6.0
         
-    return {
-        "gio_tuan": 1.5,
-        "noi_dung_tap_trung": [
-            "Luyện tập bài tập tự luận và trắc nghiệm",
-            "Hệ thống hóa kiến thức trọng tâm",
-            "Làm đề thi thử định kỳ"
-        ],
-        "ghi_chu": "Tập trung tự học và chủ động trao đổi bài học."
-    }
+    if score < 5.0:
+        return {
+            "gio_tuan": 2.0,
+            "noi_dung_tap_trung": [
+                "Hệ thống hóa lại các kiến thức cơ bản chưa nắm vững",
+                "Làm các bài tập cơ bản SGK và bài tập củng cố",
+                "Trao đổi với thầy cô và các bạn để giải đáp thắc mắc"
+            ],
+            "ghi_chu": "Cần ưu tiên dành nhiều thời gian hơn để lấy lại kiến thức căn bản môn học."
+        }
+    elif score >= 8.0:
+        return {
+            "gio_tuan": 1.0,
+            "noi_dung_tap_trung": [
+                "Luyện tập các dạng bài nâng cao và chuyên sâu",
+                "Chia sẻ và hỗ trợ các bạn cùng tiến bộ",
+                "Tìm hiểu thêm các tài liệu học tập mở rộng"
+            ],
+            "ghi_chu": "Duy trì phong độ học tập tốt và phát huy năng lực tự học."
+        }
+    else:
+        return {
+            "gio_tuan": 1.5,
+            "noi_dung_tap_trung": [
+                "Luyện tập các bài tập tổng hợp và đề tự luyện",
+                "Hệ thống hóa kiến thức trọng tâm theo chương/chủ đề",
+                "Xem lại các lỗi sai trong các bài kiểm tra trước"
+            ],
+            "ghi_chu": "Duy trì nỗ lực đều đặn để cải thiện và ổn định điểm số môn học."
+        }
 
 def generate_goals_and_plans(input_data, selected_scored, noi_bat_list):
     ca_nam = input_data.get("ca_nam", {})
