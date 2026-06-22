@@ -1,0 +1,123 @@
+Dưới đây là kế hoạch triển khai mã nguồn (code implementation plan) chi tiết, phân tách rõ ràng nhiệm vụ giữa hệ thống Rule-based (chiếm 95% khối lượng) và AI (chiếm 5% khối lượng), cùng với quy trình hợp nhất dữ liệu để tối ưu hóa tốc độ xử lý qua Qwen3-4B.
+
+### Giai đoạn 1: Xây dựng Nhóm Hàm Rule-based (Tiền xử lý và Logic Hệ thống)
+
+Nhóm hàm này viết bằng các ngôn ngữ lập trình Backend thông thường (như Python, Go, Node.js), chịu trách nhiệm định hình toàn bộ cấu trúc JSON và thực thi logic toán học, pháp lý.
+
+**1. Hàm `build_student_info(input_data)**`
+
+* **Nhiệm vụ:** Ánh xạ dữ liệu tĩnh từ đầu vào sang cấu trúc `student_info`.
+
+
+* **Xử lý:** Ép kiểu chuỗi "Có" thành giá trị boolean `true` cho biến `is_khuyet_tat_khong_danh_gia`. Sao chép trực tiếp các trường định danh như `dien_chinh_sach`, `khu_vuc`, `MA_KHOI`.
+
+
+
+**2. Hàm `evaluate_tt22_rules(input_data, is_khuyet_tat)**`
+
+* **Nhiệm vụ:** Xếp loại học lực và gắn cờ cảnh báo theo Thông tư 22.
+
+
+* **Xử lý:**
+* Nếu `is_khuyet_tat == true`: Bỏ qua tính toán, gán `ap_dung_tt22 = false` và vô hiệu hóa tất cả cờ cảnh báo.
+
+
+* Nếu `is_khuyet_tat == false`: Lặp qua điểm số các môn. Thực thi các lệnh điều kiện (IF-ELSE) để kiểm tra: có môn nào điểm trung bình < 3.5 không, môn nhận xét có "Chưa Đạt" không. Đánh giá xếp loại (Tốt, Khá, Đạt, Chưa Đạt) dựa trên các ngưỡng điểm 8.0, 6.5, 5.0, 3.5 và số lượng môn đạt yêu cầu.
+
+
+
+
+
+**3. Hàm `filter_and_sort_subjects(chi_tiet_diem)**`
+
+* **Nhiệm vụ:** Chọn lọc môn học ưu tiên và nội suy xu hướng tiến bộ.
+
+
+* **Xử lý:**
+* Tính điểm trọng số (Priority Score) cho từng môn: Môn có ĐTB < 5.0 (Cần báo động), Môn trọng điểm THPT (Toán, Văn, Ngoại ngữ), Môn điểm cao > 8.5.
+
+
+* Sắp xếp giảm dần theo trọng số và thực hiện cắt mảng (slice) để lấy đúng 5 môn điểm số và 2 môn nhận xét.
+
+
+* So sánh điểm HK1 và HK2 bằng phép trừ số học cơ bản để gán giá trị biến `xu_huong` (TANG, GIAM, ON_DINH).
+
+
+
+
+
+**4. Hàm `generate_goals_and_plans(diem_ca_nam)**`
+
+* **Nhiệm vụ:** Sinh mục tiêu học tập và thời lượng phân bổ.
+
+
+* **Xử lý:**
+* Kiểm tra nếu học sinh không tự đặt mục tiêu (`co_diem_muc_tieu = false`), áp dụng công thức giới hạn: Nếu điểm < 5.0, cộng 2.0 (tối đa 6.0); Nếu 5.0 - 6.4, cộng 1.5 (tối đa 7.5), v.v..
+
+
+* Phân chia danh sách môn thành 3 mảng: `uu_tien_cao`, `uu_tien_trung`, `duy_tri` dựa trên ĐTB.
+
+
+* Tra cứu các phương pháp học tập từ một từ điển (Dictionary/HashMap) cấu hình sẵn để điền vào `noi_dung_tap_trung` cho từng môn.
+
+
+
+
+
+**5. Hàm `apply_template_engine(data)**`
+
+* **Nhiệm vụ:** Sinh các câu văn cảnh báo tự động mang tính pháp lý.
+
+
+* **Xử lý:** Nếu số buổi nghỉ không phép >= 10, tự động chèn dữ liệu vào mẫu câu chuẩn: `"Em có {nghi_khong_phep_tong} buổi nghỉ học không phép trong {hoc_ky}... Gia đình nên phối hợp..."`.
+
+
+
+### Giai đoạn 2: Nhóm Hàm AI (Micro-LLM Generation)
+
+Giai đoạn này tước bỏ việc sinh JSON của LLM, chỉ bắt Qwen3-4B sinh ra văn bản thuần túy (Plain Text).
+
+**6. Hàm `build_micro_prompt(rule_based_output)**`
+
+* **Nhiệm vụ:** Tạo câu lệnh nén siêu ngắn.
+* **Xử lý:** Trích xuất các ý chính từ kết quả của Giai đoạn 1 và gộp thành một chuỗi duy nhất.
+* *Ví dụ Prompt gửi đi:* "Học sinh lớp 9. Tiến bộ môn Tin (7.5 -> 9.0). Yếu môn KHTN (4.7). Thái độ: chăm chỉ. Hãy viết đúng 3 câu. Câu 1: Giới thiệu nỗ lực. Câu 2: Tổng quan học tập. Câu 3: Điểm mạnh. Phân cách 3 câu bằng chuỗi '||'. Không xưng Cô/Thầy.".
+
+
+
+
+
+**7. Hàm `call_qwen_llm(compressed_prompt)**`
+
+* **Nhiệm vụ:** Gọi API model Qwen3-4B instruct.
+* **Kết quả kỳ vọng:** Do prompt cực ngắn và chỉ yêu cầu sinh 3 câu, model sẽ chỉ mất ~1-2 giây để trả về một chuỗi dạng: `Học sinh có hoàn cảnh khó khăn nhưng luôn nỗ lực vượt khó. |
+
+| Có sự tiến bộ rõ rệt ở kỳ 2 tuy nhiên vài môn vẫn cần cố gắng. |
+| Điểm mạnh nổi bật là sự bứt phá ở môn Tin học và GDCD.`.
+
+### Giai đoạn 3: Nhóm Hàm Hợp nhất (Orchestrator & Merge)
+
+Đây là hàm điều phối luồng chạy (Main Pipeline), ghép nối kết quả tĩnh và động.
+
+**8. Hàm `merge_and_build_json(rule_based_data, ai_text)**`
+
+* **Nhiệm vụ:** Trả về tệp JSON hoàn chỉnh theo đúng định dạng đích.
+
+
+* **Xử lý:**
+* Khởi tạo bộ khung JSON tổng.
+
+
+* Đổ toàn bộ dữ liệu định lượng, cảnh báo, kế hoạch học tập, danh sách môn học từ `rule_based_data` vào các node tương ứng.
+* Sử dụng lệnh `.split("||")` trên chuỗi `ai_text` để nhận về mảng 3 phần tử.
+* Gán phần tử `` vào `student_info.gioi_thieu_text`, phần tử `[1]` vào `general_summary.tong_quan_text`, và phần tử `[1]` vào `strengths.summary_text`.
+
+
+* Kiểm tra các trường hợp bất thường để ghi nhận vào `_internal_luu_y.du_lieu_con_thieu` (ví dụ: thiếu điểm thi giữa kỳ).
+
+
+* Trả về payload JSON cuối cùng cho Frontend.
+
+
+
+Với luồng xử lý này, thời gian chờ sinh token trên mỗi hồ sơ (89 giây) sẽ giảm xuống chỉ còn 1-3 giây, giải quyết triệt để vấn đề hàng đợi (queue) khi chạy trên Qwen3-4B cho số lượng lớn học sinh.
