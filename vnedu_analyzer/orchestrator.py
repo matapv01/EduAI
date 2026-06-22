@@ -32,10 +32,11 @@ def process_student_advisory(input_data, prompt_template=None, metrics_out=None)
     student_info["xep_loai_ren_luyen"] = tt22_eval["xep_loai_ren_luyen"]
     
     # Phase 1: Subject Selection
+    # Phase 1: Subject Selection
     selected_scored, selected_nhan_xet, noi_bat_list = filter_and_sort_subjects(input_data)
     
     # Phase 1: Subject Reviews Building
-    subject_reviews = build_subject_reviews(input_data, selected_scored, noi_bat_list)
+    subject_reviews = build_subject_reviews(input_data, selected_scored, selected_nhan_xet, noi_bat_list)
     
     # Phase 1: Goals and Plans
     improvement_goals, study_plan = generate_goals_and_plans(input_data, selected_scored, noi_bat_list)
@@ -51,7 +52,7 @@ def process_student_advisory(input_data, prompt_template=None, metrics_out=None)
     # Strengths items building
     strengths_items = []
     for sub in subject_reviews["danh_sach"]:
-        if sub["mon_duoc_chon_vi"] == "NOI_BAT":
+        if sub["loai_danh_gia"] == "DIEM_SO" and sub["mon_duoc_chon_vi"] == "NOI_BAT":
             hk1_val = sub["dtb_hk1"]
             hk2_val = sub["dtb_hk2"]
             hk1_str = f"{hk1_val:.1f}" if hk1_val is not None else ""
@@ -82,10 +83,48 @@ def process_student_advisory(input_data, prompt_template=None, metrics_out=None)
         "items": strengths_items
     }
     
+    # Dynamic TT22 Warnings checks
+    phase = input_data.get("phase", "ca_nam")
+    ca_nam_data = input_data.get("ca_nam", {})
+    chi_tiet_diem = input_data.get("chi_tiet_diem", {})
+    
+    from .rule_based.subject_selection import get_subject_warning, to_upper_result
+    
+    # 1. Subject-specific warnings (DTB < 3.5, CK < 3.0 anomaly)
+    subject_warnings = {}
+    for sub_name, detail in chi_tiet_diem.items():
+        cn_entry = ca_nam_data.get(sub_name, {})
+        has_warn, warn_txt = get_subject_warning(sub_name, detail, cn_entry, phase)
+        if has_warn:
+            subject_warnings[sub_name] = warn_txt
+            
+    # 2. Check Chưa Đạt comment subjects
+    chua_dat_count = 0
+    for sub_name, detail in chi_tiet_diem.items():
+        cn_entry = ca_nam_data.get(sub_name, {})
+        diem = cn_entry.get("diem")
+        try:
+            float(diem)
+        except (ValueError, TypeError):
+            res_hk1 = to_upper_result(detail.get("hk1", {}).get("diem_tb"))
+            res_hk2 = to_upper_result(detail.get("hk2", {}).get("diem_tb"))
+            res_cn = to_upper_result(cn_entry.get("diem"))
+            current_res = res_hk1 if phase == "hk1" else res_hk2 if phase == "hk2" else res_cn
+            if current_res == "CHƯA ĐẠT":
+                chua_dat_count += 1
+                
+    # 3. Check absences warning
+    has_absence_warning = attendance_awards["chuyen_can"]["canh_bao_chuyen_can"]
+    absence_warn_text = attendance_awards["chuyen_can"]["nhan_xet_chuyen_can"]
+    
     # Concerns items building
     concerns_items = []
+    # Scored subjects in reviews
     for sub in subject_reviews["danh_sach"]:
-        if sub["mon_duoc_chon_vi"] == "CAN_CAI_THIEN":
+        if sub["loai_danh_gia"] == "DIEM_SO" and sub["mon_duoc_chon_vi"] == "CAN_CAI_THIEN":
+            warn_txt = subject_warnings.get(sub["ten_mon"])
+            has_warn = (warn_txt is not None)
+            
             hk2_val = sub["dtb_hk2"]
             hk2_str = f"{hk2_val:.1f}" if hk2_val is not None else ""
             if hk2_val is not None:
@@ -100,14 +139,49 @@ def process_student_advisory(input_data, prompt_template=None, metrics_out=None)
                 "loai": "MON_HOC",
                 "tieu_de": sub["ten_mon"],
                 "mo_ta": mo_ta,
-                "canh_bao_tt22": False,
-                "canh_bao_text": None
+                "canh_bao_tt22": has_warn,
+                "canh_bao_text": warn_txt
             })
             
+    # Add other subjects with warnings that were not in subject reviews
+    added_subs = {x["tieu_de"] for x in concerns_items}
+    for sub, warn_txt in subject_warnings.items():
+        if sub not in added_subs:
+            concerns_items.append({
+                "loai": "MON_HOC",
+                "tieu_de": sub,
+                "mo_ta": warn_txt,
+                "canh_bao_tt22": True,
+                "canh_bao_text": warn_txt
+            })
+            
+    # Add comment subjects Chưa Đạt warning
+    if chua_dat_count > 0:
+        warn_txt = f"Có {chua_dat_count} môn đánh giá nhận xét chưa đạt yêu cầu, điều này có thể ảnh hưởng đến xếp loại học tập tổng thể của em."
+        concerns_items.append({
+            "loai": "MON_HOC",
+            "tieu_de": "Môn nhận xét Chưa Đạt",
+            "mo_ta": warn_txt,
+            "canh_bao_tt22": True,
+            "canh_bao_text": warn_txt
+        })
+        
+    # Add absences warning
+    if has_absence_warning:
+        concerns_items.append({
+            "loai": "CHUYEN_CAN",
+            "tieu_de": "Chuyên cần",
+            "mo_ta": absence_warn_text,
+            "canh_bao_tt22": True,
+            "canh_bao_text": absence_warn_text
+        })
+        
+    co_canh_bao_tt22 = any(x["canh_bao_tt22"] for x in concerns_items)
+    
     concerns = {
         "summary_text": f"Các môn như {', '.join(uu_tien_cao)} vẫn còn điểm số thấp, cần được hỗ trợ để cải thiện và đạt yêu cầu học tập.",
         "items": concerns_items,
-        "co_canh_bao_tt22": False
+        "co_canh_bao_tt22": co_canh_bao_tt22
     }
     
     # Dynamic Diem noi bat and Diem can cai thien

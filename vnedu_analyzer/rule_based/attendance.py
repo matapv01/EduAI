@@ -18,7 +18,7 @@ def apply_template_engine(input_data):
             hk_str = "năm học"
         nhan_xet_chuyen_can = (
             f"Em có {total_abs} buổi nghỉ học không phép trong {hk_str}. "
-            f"Việc vắng mặt thường xuyên có thể ảnh hưởng đến khả năng tiếp thu bài và kết quả kiểm tra. "
+            f"Việc vắng mặt thường xuyên có thể ảnh hưởng trực tiếp đến khả năng tiếp thu bài và kết quả kiểm tra. "
             f"Gia đình nên phối hợp chặt chẽ với giáo viên chủ nhiệm để theo dõi và hỗ trợ em."
         )
         

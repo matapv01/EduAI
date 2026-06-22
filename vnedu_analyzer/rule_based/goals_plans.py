@@ -113,10 +113,55 @@ def generate_goals_and_plans(input_data, selected_scored, noi_bat_list):
             "noi_dung_tap_trung": details["noi_dung_tap_trung"],
             "ghi_chu": details["ghi_chu"]
         })
+
+    # Determine dynamic orientation based on grade and phase
+    khoi_str = str(input_data.get("MA_KHOI", "9"))
+    phase = input_data.get("phase", "ca_nam")
+    
+    loai_ke_hoach = "TRONG_HE" if phase == "ca_nam" else "THEO_GIO_TUAN"
+    
+    giai_doan = "HK_SAU"
+    lop_cuoi_cap_ap_dung = False
+    lop_cuoi_cap_loai = "null"
+    lop_cuoi_cap_noi_dung = None
+    
+    hk1_dtb = safe_float(input_data.get("hk1", {}).get("diem_tb", {}).get("diem"))
+    hk2_dtb = safe_float(input_data.get("hk2", {}).get("diem_tb", {}).get("diem"))
+    
+    overall_trend = "ON_DINH"
+    if hk1_dtb is not None and hk2_dtb is not None:
+        if hk2_dtb > hk1_dtb + 0.2:
+            overall_trend = "TIEN_BO"
+        elif hk2_dtb < hk1_dtb - 0.2:
+            overall_trend = "SUT_GIAM"
+            
+    if overall_trend == "TIEN_BO":
+        intro = "Học sinh đang có sự tiến bộ rõ rệt trong kết quả học tập"
+    elif overall_trend == "SUT_GIAM":
+        intro = "Kết quả học tập của học sinh đang có phần sụt giảm so với học kỳ trước"
+    else:
+        intro = "Học sinh duy trì phong độ học tập khá ổn định"
+    
+    if khoi_str == "9":
+        giai_doan = "ON_THI_THPT"
+        lop_cuoi_cap_ap_dung = True
+        lop_cuoi_cap_loai = "CHUYEN_CAP_THPT"
+        lop_cuoi_cap_noi_dung = "Tập trung ôn tập các kiến thức cốt lõi và luyện đề thi tuyển sinh vào lớp 10."
+        dinh_huong_text = f"{intro}, cần tiếp tục nỗ lực ôn tập để chuẩn bị tốt cho kỳ thi tuyển sinh vào lớp 10. Môn cần tập trung cải thiện là {', '.join(uu_tien_cao)} để nâng cao tổng điểm xét tuyển."
+    elif khoi_str == "12":
+        giai_doan = "TOT_NGHIEP_DH"
+        lop_cuoi_cap_ap_dung = True
+        lop_cuoi_cap_loai = "TOT_NGHIEP"
+        lop_cuoi_cap_noi_dung = "Hệ thống hóa kiến thức kỳ thi Tốt nghiệp THPT và chuẩn bị hồ sơ xét tuyển Đại học."
+        dinh_huong_text = f"{intro}, cần tiếp tục nỗ lực học tập để đạt kết quả tốt trong kỳ thi Tốt nghiệp THPT và chuẩn bị hồ sơ học bạ/xét tuyển Đại học. Tập trung ôn tập môn {', '.join(uu_tien_cao)} để củng cố kiến thức tổ hợp."
+    else:
+        target_period = "học kỳ tiếp theo" if phase == "hk1" else "năm học tiếp theo"
+        giai_doan = "HK_SAU" if phase == "hk1" else "NAM_SAU"
+        dinh_huong_text = f"{intro}. Cần tiếp tục nỗ lực để đạt điểm số ổn định trong {target_period}. Cần cải thiện môn {', '.join(uu_tien_cao)} để đảm bảo kết quả học tập tổng thể đạt mức ĐẠT."
         
     study_plan = {
         "section_title": "Kế hoạch học tập",
-        "loai_ke_hoach": "THEO_GIO_TUAN",
+        "loai_ke_hoach": loai_ke_hoach,
         "ghi_chu_chung": "Tập trung vào các môn có điểm thấp để cải thiện kết quả học tập, đồng thời duy trì sự cố gắng trong các môn đã có tiến bộ.",
         "tong_gio_tuan": 10,
         "phan_bo_uu_tien": {
@@ -127,14 +172,14 @@ def generate_goals_and_plans(input_data, selected_scored, noi_bat_list):
         "ke_hoach_chi_tiet": ke_hoach_chi_tiet,
         "mon_nhan_xet_chua_dat": [],
         "dinh_huong_giai_doan_tiep": {
-            "giai_doan": "HK_SAU",
+            "giai_doan": giai_doan,
             "nhan_dinh_chung": "Học sinh có tiềm năng phát triển tốt, cần tiếp tục nỗ lực để đạt điểm số ổn định và đạt yêu cầu học tập.",
             "muc_tieu_xep_loai": "ĐẠT",
             "mon_tap_trung": uu_tien_cao,
             "lop_cuoi_cap": {
-                "ap_dung": False,
-                "loai": "null",
-                "noi_dung_them": None
+                "ap_dung": lop_cuoi_cap_ap_dung,
+                "loai": lop_cuoi_cap_loai,
+                "noi_dung_them": lop_cuoi_cap_noi_dung
             },
             "ca_nhan_hoa": {
                 "diem_manh_noi_bat": ", ".join(uu_tien_trung),
@@ -142,7 +187,7 @@ def generate_goals_and_plans(input_data, selected_scored, noi_bat_list):
                 "muc_tieu_truong_cu_the": None,
                 "luu_y_rieng": "Học sinh cần duy trì tinh thần học tập và cải thiện các môn còn yếu."
             },
-            "dinh_huong_text": f"Học sinh đang có sự tiến bộ rõ rệt, cần tiếp tục nỗ lực để đạt điểm số ổn định và đạt yêu cầu học tập. Các môn còn yếu cần được cải thiện để đảm bảo kết quả học tập tổng thể đạt mức ĐẠT trong học kỳ tới."
+            "dinh_huong_text": dinh_huong_text
         }
     }
     
