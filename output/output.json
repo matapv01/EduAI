@@ -5,7 +5,7 @@
       "dien_chinh_sach": "Có cha mẹ thu nhập bằng 150% thu nhập hộ nghèo theo quy định",
       "khu_vuc": "Miền núi - Vùng sâu"
     },
-    "gioi_thieu_text": "Em là học sinh miền núi vùng sâu, có hoàn cảnh gia đình thuộc diện chính sách khó khăn nhưng vẫn nỗ lực vươn lên trong học tập.",
+    "gioi_thieu_text": "Em là học sinh miền núi vùng sâu, có hoàn cảnh gia đình thuộc diện chính sách khó khăn nhưng vẫn nỗ lực vượt khó để đến trường và duy trì việc học tập.",
     "ho_ten": "string",
     "lop": "string",
     "khoi": 9,
@@ -17,7 +17,7 @@
     "si_so_lop": null
   },
   "general_summary": {
-    "tong_quan_text": "Học kỳ 2, em thể hiện sự tiến bộ rõ rệt khi điểm số nhiều môn học được cải thiện, đặc biệt là môn Tin học và GDCD.",
+    "tong_quan_text": "Học kỳ 2, em đã thể hiện sự cố gắng rõ rệt khi cải thiện điểm số ở nhiều môn học, cho thấy tinh thần học tập tích cực và quyết tâm cao.",
     "xu_huong": "TIEN_BO",
     "xu_huong_text": "Có dấu hiệu tiến bộ rõ rệt từ học kỳ 1 sang học kỳ 2, đặc biệt ở các môn có điểm số tăng từ 4–6 điểm.",
     "diem_noi_bat": "Tin học (từ 7.5 lên 9), GDCD (từ 7.9 lên 8.2), Giáo dục thể chất (vẫn đạt toàn bộ)",
@@ -92,7 +92,7 @@
     ]
   },
   "strengths": {
-    "summary_text": "Em nổi bật ở môn Tin học với mức tăng từ 7.5 lên 9.0 điểm, đồng thời GDCD cũng có sự tiến bộ từ 7.9 lên 8.2 điểm.",
+    "summary_text": "Em nổi bật với môn Tin học khi tăng từ 7.5 lên 9.0 và GDCD từ 7.9 lên 8.2, thể hiện khả năng tư duy logic và nắm bắt kiến thức tốt ở các lĩnh vực này.",
     "items": [
       {
         "loai": "MON_HOC",

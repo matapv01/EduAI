@@ -64,9 +64,9 @@ def call_qwen_llm(compressed_prompt, metrics_out=None):
     api_key = nvidia_api_key or os.environ.get("API_KEY") or os.environ.get("QWEN_API_KEY")
     endpoint_url = os.environ.get("ENDPOINT_URL") or os.environ.get("QWEN_ENDPOINT_URL") or os.environ.get("NVIDIA_ENDPOINT_URL")
     
-    # If using NVIDIA and endpoint is not specified, use the standard integrate.api.nvidia.com
+    # If using NVIDIA and endpoint is not specified, attempt to read from env or use the standard default
     if nvidia_api_key and not endpoint_url:
-        endpoint_url = "https://integrate.api.nvidia.com/v1/chat/completions"
+        endpoint_url = os.environ.get("NVIDIA_ENDPOINT_URL") or "https://integrate.api.nvidia.com/v1/chat/completions"
         
     if not api_key:
         raise ValueError("Missing LLM API Key (NVIDIA_API_KEY / QWEN_API_KEY)")
