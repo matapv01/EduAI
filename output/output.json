@@ -1,51 +1,109 @@
 {
   "student_info": {
     "_internal_flags": {
-      "is_khuyet_tat_khong_danh_gia": false,
-      "dien_chinh_sach": "Con thương binh, bệnh binh",
-      "khu_vuc": null
+      "is_khuyet_tat_khong_danh_gia": true,
+      "dien_chinh_sach": "Có cha mẹ thu nhập bằng 150% thu nhập hộ nghèo theo quy định",
+      "khu_vuc": "Miền núi - Vùng sâu"
     },
-    "gioi_thieu_text": "Em là con thương binh/bệnh binh nhưng vẫn kiên trì đến trường, nỗ lực vượt qua hoàn cảnh để theo đuổi con đường học tập.",
+    "gioi_thieu_text": "Em là học sinh miền núi vùng sâu, hoàn cảnh gia đình thuộc diện chính sách khó khăn nhưng vẫn nỗ lực vượt khó đến trường, đáng ghi nhận và biểu dương.",
     "ho_ten": "string",
     "lop": "string",
-    "khoi": 6,
+    "khoi": 9,
     "nam_hoc": "2025",
-    "truong": "Trường check AI vnedu",
-    "xep_loai_hoc_tap": "CHƯA ĐẠT",
-    "xep_loai_ren_luyen": "Tốt",
+    "truong": "Trường Liên cấp 123",
+    "xep_loai_hoc_tap": null,
+    "xep_loai_ren_luyen": null,
     "thu_hang_lop": null,
     "si_so_lop": null
   },
   "general_summary": {
-    "tong_quan_text": "Kỳ 2 em đã thể hiện sự tiến bộ rõ rệt, cố gắng khắc phục những hạn chế từ kỳ trước và cải thiện kết quả học tập tích cực.",
+    "tong_quan_text": "Học kỳ 2, em đã có sự cố gắng rõ rệt khi nâng điểm ở nhiều môn học, thể hiện tinh thần học tập tích cực và quyết tâm cao.",
     "xu_huong": "TIEN_BO",
     "xu_huong_text": "Có dấu hiệu tiến bộ rõ rệt từ học kỳ 1 sang học kỳ 2, đặc biệt ở các môn có điểm số tăng từ 4–6 điểm.",
-    "diem_noi_bat": "Giáo dục thể chất (vẫn đạt toàn bộ)",
-    "diem_can_cai_thien": "GDCD – điểm số vẫn ở mức trung bình, cần nỗ lực hơn để đạt yêu cầu.",
+    "diem_noi_bat": "Tin học (từ 7.5 lên 9), GDCD (từ 7.9 lên 8.2), Giáo dục thể chất (vẫn đạt toàn bộ)",
+    "diem_can_cai_thien": "Lịch sử và Địa lí, Khoa học tự nhiên, Ngoại ngữ – điểm số vẫn ở mức trung bình, cần nỗ lực hơn để đạt yêu cầu.",
     "nhan_xet_thai_do": null,
     "tone": "QUAN_TAM"
   },
   "subject_reviews": {
-    "tong_so_mon_da_doc": 5,
+    "tong_so_mon_da_doc": 9,
     "ghi_chu_chon_loc": "Phân tích các môn có điểm tăng trưởng rõ rệt hoặc cần cải thiện, ưu tiên theo xu hướng tiến bộ và mức độ ảnh hưởng đến học tập tổng thể.",
     "danh_sach": [
       {
+        "ten_mon": "Tin học",
+        "mon_duoc_chon_vi": "NOI_BAT",
+        "loai_danh_gia": "DIEM_SO",
+        "dtb_hk1": 7.5,
+        "dtb_hk2": 9.0,
+        "dtb_ca_nam": 8.75,
+        "xu_huong": "TANG",
+        "diem_thanh_phan_dang_chu_y": "Kết quả học tập môn Tin học tiến bộ rõ rệt trong học kỳ 2, tăng từ 7.5 lên 9.0.",
+        "nhan_xet_gv": "Hoàn thành rất tốt nội dung kiến thức môn học.",
+        "nhan_xet_he_thong": "Hoàn thành xuất sắc các nội dung học tập môn Tin học, tiếp thu bài nhanh và tự giác."
+      },
+      {
         "ten_mon": "GDCD",
+        "mon_duoc_chon_vi": "NOI_BAT",
+        "loai_danh_gia": "DIEM_SO",
+        "dtb_hk1": 7.9,
+        "dtb_hk2": 8.2,
+        "dtb_ca_nam": 8.05,
+        "xu_huong": "TANG",
+        "diem_thanh_phan_dang_chu_y": "Kết quả học tập môn GDCD tiến bộ rõ rệt trong học kỳ 2, tăng từ 7.9 lên 8.2.",
+        "nhan_xet_gv": "Kết quả học tập tốt, em rất đáng khen.",
+        "nhan_xet_he_thong": "Hoàn thành xuất sắc các nội dung học tập môn GDCD, tiếp thu bài nhanh và tự giác."
+      },
+      {
+        "ten_mon": "Lịch sử và Địa lí",
         "mon_duoc_chon_vi": "CAN_CAI_THIEN",
         "loai_danh_gia": "DIEM_SO",
-        "dtb_hk1": 3.4,
-        "dtb_hk2": 3.4,
-        "dtb_ca_nam": 3.4,
-        "xu_huong": "ON_DINH",
-        "diem_thanh_phan_dang_chu_y": "Điểm số môn GDCD còn ở mức thấp đạt 3.4, cần tích cực củng cố lại kiến thức.",
-        "nhan_xet_gv": "NX_M2_K1.",
-        "nhan_xet_he_thong": "Chưa hoàn thành đầy đủ yêu cầu bộ môn GDCD, cần tăng cường ôn luyện để đạt kết quả trung bình."
+        "dtb_hk1": 4.3,
+        "dtb_hk2": 6.2,
+        "dtb_ca_nam": 5.25,
+        "xu_huong": "TANG",
+        "diem_thanh_phan_dang_chu_y": "Có tiến bộ nhẹ môn Lịch sử và Địa lí từ 4.3 lên 6.2 nhưng điểm số nhìn chung vẫn cần nỗ lực cải thiện.",
+        "nhan_xet_gv": "Chưa tích cực trong học tập, cần cố gắng hơn.",
+        "nhan_xet_he_thong": "Kết quả học tập môn Lịch sử và Địa lí ở mức trung bình, cần tập trung hơn nữa trong việc làm bài tập."
+      },
+      {
+        "ten_mon": "Khoa học tự nhiên",
+        "mon_duoc_chon_vi": "CAN_CAI_THIEN",
+        "loai_danh_gia": "DIEM_SO",
+        "dtb_hk1": 4.1,
+        "dtb_hk2": 5.0,
+        "dtb_ca_nam": 4.55,
+        "xu_huong": "TANG",
+        "diem_thanh_phan_dang_chu_y": "Có tiến bộ nhẹ môn Khoa học tự nhiên từ 4.1 lên 5.0 nhưng điểm số nhìn chung vẫn cần nỗ lực cải thiện.",
+        "nhan_xet_gv": "Chưa hoàn thành các yêu cầu cần đạt của bộ môn, cần cố gắng học tập hơn nữa.",
+        "nhan_xet_he_thong": "Kết quả học tập môn Khoa học tự nhiên ở mức trung bình, cần tập trung hơn nữa trong việc làm bài tập."
+      },
+      {
+        "ten_mon": "Ngoại ngữ",
+        "mon_duoc_chon_vi": "CAN_CAI_THIEN",
+        "loai_danh_gia": "DIEM_SO",
+        "dtb_hk1": 3.5,
+        "dtb_hk2": 6.2,
+        "dtb_ca_nam": 4.85,
+        "xu_huong": "TANG",
+        "diem_thanh_phan_dang_chu_y": "Có tiến bộ nhẹ môn Ngoại ngữ từ 3.5 lên 6.2 nhưng điểm số nhìn chung vẫn cần nỗ lực cải thiện.",
+        "nhan_xet_gv": "Chưa hoàn thành các yêu cầu cần đạt của bộ môn, cần cố gắng học tập hơn nữa.",
+        "nhan_xet_he_thong": "Kết quả học tập môn Ngoại ngữ ở mức trung bình, cần tập trung hơn nữa trong việc làm bài tập."
       }
     ]
   },
   "strengths": {
-    "summary_text": "Em có nhiều điểm mạnh ở các môn học cốt lõi, đặc biệt là khả năng tư duy và tiếp thu kiến thức tốt ở các môn chính.",
+    "summary_text": "Em nổi bật với môn Tin học (từ 7.5 lên 9.0) và GDCD (từ 7.9 lên 8.2), cho thấy năng lực tư duy logic và kỹ năng công nghệ thông tin tốt.",
     "items": [
+      {
+        "loai": "MON_HOC",
+        "tieu_de": "Tin học",
+        "mo_ta": "Điểm số tiến bộ rõ rệt từ 7.5 lên 9.0, hoàn thành tốt nội dung học tập."
+      },
+      {
+        "loai": "MON_HOC",
+        "tieu_de": "GDCD",
+        "mo_ta": "Điểm số tiến bộ rõ rệt từ 7.9 lên 8.2, hoàn thành tốt nội dung học tập."
+      },
       {
         "loai": "THAI_DO",
         "tieu_de": "Tinh thần học tập",
@@ -54,12 +112,26 @@
     ]
   },
   "concerns": {
-    "summary_text": "Các môn như GDCD vẫn còn điểm số thấp, cần được hỗ trợ để cải thiện và đạt yêu cầu học tập.",
+    "summary_text": "Các môn như Lịch sử và Địa lí, Khoa học tự nhiên, Ngoại ngữ vẫn còn điểm số thấp, cần được hỗ trợ để cải thiện và đạt yêu cầu học tập.",
     "items": [
       {
         "loai": "MON_HOC",
-        "tieu_de": "GDCD",
-        "mo_ta": "Điểm trung bình còn thấp (3.4), chưa đạt chuẩn trung bình bộ môn.",
+        "tieu_de": "Lịch sử và Địa lí",
+        "mo_ta": "Điểm số ở mức trung bình (6.2), cần dành thời gian luyện tập thêm.",
+        "canh_bao_tt22": false,
+        "canh_bao_text": null
+      },
+      {
+        "loai": "MON_HOC",
+        "tieu_de": "Khoa học tự nhiên",
+        "mo_ta": "Điểm số ở mức trung bình (5.0), cần dành thời gian luyện tập thêm.",
+        "canh_bao_tt22": false,
+        "canh_bao_text": null
+      },
+      {
+        "loai": "MON_HOC",
+        "tieu_de": "Ngoại ngữ",
+        "mo_ta": "Điểm số ở mức trung bình (6.2), cần dành thời gian luyện tập thêm.",
         "canh_bao_tt22": false,
         "canh_bao_text": null
       }
@@ -69,22 +141,34 @@
   "attendance_awards": {
     "chuyen_can": {
       "nghi_co_phep_tong": 0,
-      "nghi_khong_phep_tong": 0,
+      "nghi_khong_phep_tong": 44,
       "nghi_khong_phep_hk1": 0,
-      "nghi_khong_phep_hk2": 0,
-      "canh_bao_chuyen_can": false,
-      "nhan_xet_chuyen_can": null
+      "nghi_khong_phep_hk2": 44,
+      "canh_bao_chuyen_can": true,
+      "nhan_xet_chuyen_can": "Em có 44 buổi nghỉ học không phép trong học kỳ 2. Việc vắng mặt thường xuyên có thể ảnh hưởng đến khả năng tiếp thu bài và kết quả kiểm tra. Gia đình nên phối hợp chặt chẽ với giáo viên chủ nhiệm để theo dõi và hỗ trợ em."
     },
     "khen_thuong": []
   },
   "improvement_goals": {
-    "summary_text": "Học sinh cần tập trung cải thiện điểm số ở các môn có điểm thấp, đặc biệt là GDCD để đạt yêu cầu học tập.",
-    "co_muc_tieu_tu_dat": false,
+    "summary_text": "Học sinh cần tập trung cải thiện điểm số ở các môn có điểm thấp, đặc biệt là Lịch sử và Địa lí, Khoa học tự nhiên, Ngoại ngữ để đạt yêu cầu học tập.",
+    "co_muc_tieu_tu_dat": true,
     "items": [
       {
-        "ten_mon": "GDCD",
-        "diem_hien_tai": 3.4,
-        "diem_muc_tieu": 5.5,
+        "ten_mon": "Lịch sử và Địa lí",
+        "diem_hien_tai": 5.6,
+        "diem_muc_tieu": 9.0,
+        "muc_do_uu_tien": "CAO"
+      },
+      {
+        "ten_mon": "Khoa học tự nhiên",
+        "diem_hien_tai": 4.7,
+        "diem_muc_tieu": 9.0,
+        "muc_do_uu_tien": "CAO"
+      },
+      {
+        "ten_mon": "Ngoại ngữ",
+        "diem_hien_tai": 5.3,
+        "diem_muc_tieu": 9.0,
         "muc_do_uu_tien": "CAO"
       }
     ]
@@ -95,15 +179,23 @@
     "ghi_chu_chung": "Tập trung vào các môn có điểm thấp để cải thiện kết quả học tập, đồng thời duy trì sự cố gắng trong các môn đã có tiến bộ.",
     "tong_gio_tuan": 10,
     "phan_bo_uu_tien": {
-      "uu_tien_cao": [
-        "GDCD"
-      ],
-      "uu_tien_trung": [],
+      "uu_tien_cao": ["Lịch sử và Địa lí", "Khoa học tự nhiên", "Ngoại ngữ"],
+      "uu_tien_trung": ["Tin học", "GDCD"],
       "duy_tri": ["Giáo dục thể chất", "Nghệ thuật", "Nội dung giáo dục của địa phương", "Hoạt động trải nghiệm, hướng nghiệp"]
     },
     "ke_hoach_chi_tiet": [
       {
-        "ten_mon": "GDCD",
+        "ten_mon": "Lịch sử và Địa lí",
+        "gio_tuan": 1.5,
+        "noi_dung_tap_trung": [
+          "Luyện tập các bài tập tổng hợp và đề tự luyện",
+          "Hệ thống hóa kiến thức trọng tâm theo chương/chủ đề",
+          "Xem lại các lỗi sai trong các bài kiểm tra trước"
+        ],
+        "ghi_chu": "Duy trì nỗ lực đều đặn để cải thiện và ổn định điểm số môn học."
+      },
+      {
+        "ten_mon": "Khoa học tự nhiên",
         "gio_tuan": 2.0,
         "noi_dung_tap_trung": [
           "Hệ thống hóa lại các kiến thức cơ bản chưa nắm vững",
@@ -111,6 +203,26 @@
           "Trao đổi với thầy cô và các bạn để giải đáp thắc mắc"
         ],
         "ghi_chu": "Cần ưu tiên dành nhiều thời gian hơn để lấy lại kiến thức căn bản môn học."
+      },
+      {
+        "ten_mon": "Ngoại ngữ",
+        "gio_tuan": 1.5,
+        "noi_dung_tap_trung": [
+          "Luyện tập các bài tập tổng hợp và đề tự luyện",
+          "Hệ thống hóa kiến thức trọng tâm theo chương/chủ đề",
+          "Xem lại các lỗi sai trong các bài kiểm tra trước"
+        ],
+        "ghi_chu": "Duy trì nỗ lực đều đặn để cải thiện và ổn định điểm số môn học."
+      },
+      {
+        "ten_mon": "Tin học",
+        "gio_tuan": 1.0,
+        "noi_dung_tap_trung": [
+          "Luyện tập các dạng bài nâng cao và chuyên sâu",
+          "Chia sẻ và hỗ trợ các bạn cùng tiến bộ",
+          "Tìm hiểu thêm các tài liệu học tập mở rộng"
+        ],
+        "ghi_chu": "Duy trì phong độ học tập tốt và phát huy năng lực tự học."
       }
     ],
     "mon_nhan_xet_chua_dat": [],
@@ -118,16 +230,14 @@
       "giai_doan": "HK_SAU",
       "nhan_dinh_chung": "Học sinh có tiềm năng phát triển tốt, cần tiếp tục nỗ lực để đạt điểm số ổn định và đạt yêu cầu học tập.",
       "muc_tieu_xep_loai": "ĐẠT",
-      "mon_tap_trung": [
-        "GDCD"
-      ],
+      "mon_tap_trung": ["Lịch sử và Địa lí", "Khoa học tự nhiên", "Ngoại ngữ"],
       "lop_cuoi_cap": {
         "ap_dung": false,
         "loai": "null",
         "noi_dung_them": null
       },
       "ca_nhan_hoa": {
-        "diem_manh_noi_bat": "",
+        "diem_manh_noi_bat": "Tin học, GDCD",
         "dinh_huong_khoi_nganh_goi_y": null,
         "muc_tieu_truong_cu_the": null,
         "luu_y_rieng": "Học sinh cần duy trì tinh thần học tập và cải thiện các môn còn yếu."
@@ -140,7 +250,11 @@
     "cho_doi_tuong": "PHU_HUYNH_VA_HOC_SINH",
     "items": [
       {
-        "hanh_dong": "Tập trung ôn tập và luyện tập thường xuyên các môn có điểm thấp, đặc biệt là GDCD.",
+        "hanh_dong": "Phối hợp chặt chẽ với giáo viên chủ nhiệm để điều chỉnh kế hoạch học tập và theo dõi việc nghỉ học không phép.",
+        "do_uu_tien": "CAO"
+      },
+      {
+        "hanh_dong": "Tập trung ôn tập và luyện tập thường xuyên các môn có điểm thấp, đặc biệt là Lịch sử và Địa lí, Khoa học tự nhiên, Ngoại ngữ.",
         "do_uu_tien": "CAO"
       },
       {
@@ -150,7 +264,9 @@
     ],
     "_internal_luu_y": {
       "_render": false,
-      "canh_bao_chua_xu_ly": [],
+      "canh_bao_chua_xu_ly": [
+        "Cảnh báo về nghỉ học không phép (44 buổi) cần được xử lý sớm"
+      ],
       "du_lieu_con_thieu": [],
       "disclaimer": "Phân tích dựa trên dữ liệu học tập hiện có. Không có thông tin về điểm số giữa kỳ hoặc đánh giá của giáo viên bộ môn đầy đủ."
     }
@@ -161,6 +277,6 @@
     "ky_danh_gia": "CA_NAM",
     "du_lieu_day_du": true,
     "cac_truong_thieu": [],
-    "ap_dung_tt22": true
+    "ap_dung_tt22": false
   }
 }
